@@ -1,0 +1,207 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Valentine System</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet"><style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins}
+
+body{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:black;
+overflow:hidden;
+color:white;
+text-align:center;
+}
+
+/* Animated Background */
+body::before{
+content:"";
+position:fixed;
+width:200%;
+height:200%;
+background:radial-gradient(circle,#ff0080,#000);
+animation:bgMove 8s linear infinite;
+z-index:-1;
+}
+
+@keyframes bgMove{
+0%{transform:translate(0,0)}
+50%{transform:translate(-25%,-25%)}
+100%{transform:translate(0,0)}
+}
+
+.container{
+background:rgba(255,255,255,.05);
+padding:40px;
+border-radius:30px;
+box-shadow:0 0 60px #ff0080;
+max-width:520px;
+}
+
+h1{font-size:2.2rem;text-shadow:0 0 20px #ff4fc3}
+
+.emoji{font-size:60px;margin-bottom:15px}
+
+.buttons{margin-top:25px}
+
+button{
+padding:14px 28px;
+border:none;
+border-radius:40px;
+background:#ff0080;
+color:white;
+font-size:18px;
+margin:10px;
+cursor:pointer;
+box-shadow:0 0 20px #ff0080;
+transition:.2s;
+}
+
+button:hover{
+transform:scale(1.1);
+box-shadow:0 0 40px #ff0080;
+}
+
+/* Running Button */
+#runBtn{
+position:relative;
+}
+
+/* Loading Screen */
+#loadingScreen{
+display:none;
+position:fixed;
+width:100%;
+height:100%;
+background:black;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+font-size:22px;
+z-index:10;
+}
+
+.loader{
+border:6px solid #333;
+border-top:6px solid #ff0080;
+border-radius:50%;
+width:80px;
+height:80px;
+animation:spin 1s linear infinite;
+margin-bottom:20px;
+}
+
+@keyframes spin{
+0%{transform:rotate(0)}
+100%{transform:rotate(360deg)}
+}
+
+/* Result */
+#result{margin-top:20px;font-size:22px}
+
+.counter{margin-top:15px;font-size:18px}
+
+.memes{display:none;margin-top:20px}
+
+.memes img{
+width:130px;
+margin:8px;
+border-radius:15px;
+box-shadow:0 0 15px black;
+}
+
+/* Flash */
+.flash{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:white;
+opacity:0;
+pointer-events:none;
+z-index:20;
+}
+</style></head><body><!-- Flash --><div class="flash" id="flash"></div><!-- Loading Screen --><div id="loadingScreen">
+<div class="loader"></div>
+<div id="scanText">Initializing Valentine Protocol…</div>
+</div><!-- Laugh Sound --><audio id="laugh">
+<source src="https://www.myinstants.com/media/sounds/evil-laugh.mp3">
+</audio><div class="container"><div class="emoji">🥺🌹</div><h1>Will you be my Valentine?</h1><div class="buttons">
+<button onclick="startPrank()">Yes</button>
+<button id="runBtn" onclick="startPrank()">Of Course</button>
+</div><div id="result"></div>
+<div class="counter" id="counter"></div><div class="memes" id="memes">
+<img src="https://i.imgflip.com/4/30b1gx.jpg">
+<img src="https://i.imgflip.com/1bij.jpg">
+<img src="https://i.imgflip.com/26am.jpg">
+<img src="https://i.imgflip.com/2fm6x.jpg">
+</div></div><script>
+
+/* Running Button */
+const btn=document.getElementById("runBtn");
+btn.addEventListener("mouseover",()=>{
+btn.style.position="absolute";
+btn.style.left=Math.random()*80+"vw";
+btn.style.top=Math.random()*80+"vh";
+});
+
+let level=0;
+
+function startPrank(){
+
+document.getElementById("loadingScreen").style.display="flex";
+
+const texts=[
+"Scanning face…",
+"Detecting loneliness…",
+"Checking chat history…",
+"No partner found…",
+"زيادة نسبة المحن…"
+];
+
+let i=0;
+const interval=setInterval(()=>{
+if(i<texts.length){
+document.getElementById("scanText").innerText=texts[i];
+i++;
+}else{
+clearInterval(interval);
+setTimeout(showResult,800);
+}
+},900);
+}
+
+function showResult(){
+
+document.getElementById("loadingScreen").style.display="none";
+
+/* Flash */
+const flash=document.getElementById("flash");
+flash.style.opacity=1;
+setTimeout(()=>flash.style.opacity=0,200);
+
+/* Laugh */
+document.getElementById("laugh").play();
+
+/* Result Text */
+document.getElementById("result").innerHTML=
+"😂 ضحكت عليك يا سنجل يا بائس 😂<br><br>"+
+"🚨 المحن تخطت الحدود 🚨<br><br>"+
+"📸 تم توثيق الحالة وإرسالها لجروب السنجلز<br><br>"+
+"Relationship Status: Lost Cause 💀";
+
+/* Counter */
+level++;
+document.getElementById("counter").innerHTML=
+"💔 Single Level: "+level+" ↑";
+
+/* Memes */
+document.getElementById("memes").style.display="block";
+}
+
+</script></body>
+</html>
