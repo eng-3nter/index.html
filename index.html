@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Valentine?</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Poppins;
+}
+
+body{
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:radial-gradient(circle,#ff9ad5,#ff2ea6);
+  overflow:hidden;
+  color:white;
+  text-align:center;
+}
+
+/* Hearts */
+.heart{
+  position:absolute;
+  font-size:24px;
+  animation:float 6s linear infinite;
+}
+
+@keyframes float{
+  0%{transform:translateY(100vh);opacity:0;}
+  50%{opacity:1;}
+  100%{transform:translateY(-10vh);opacity:0;}
+}
+
+.container{
+  background:rgba(255,255,255,.08);
+  padding:40px;
+  border-radius:25px;
+  box-shadow:0 0 40px #ff4fc3;
+}
+
+h1{
+  text-shadow:0 0 15px #ff4fc3;
+}
+
+.buttons{
+  margin-top:20px;
+}
+
+button{
+  padding:12px 25px;
+  border:none;
+  border-radius:30px;
+  background:#ff4fc3;
+  color:white;
+  font-size:18px;
+  margin:10px;
+  cursor:pointer;
+}
+
+#loading{
+  display:none;
+  margin-top:20px;
+  font-size:20px;
+  animation:pulse 1s infinite;
+}
+
+@keyframes pulse{
+  0%{opacity:.3;}
+  50%{opacity:1;}
+  100%{opacity:.3;}
+}
+
+#result{margin-top:20px;font-size:20px;}
+
+.memes{display:none;margin-top:20px;}
+
+.memes img{
+  width:120px;
+  margin:10px;
+  border-radius:15px;
+}
+
+.counter{
+  margin-top:15px;
+  font-size:18px;
+}
+
+/* Flash */
+.flash{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:white;
+  opacity:0;
+  pointer-events:none;
+}
+</style>
+</head>
+
+<body>
+
+<audio id="laugh">
+<source src="https://www.myinstants.com/media/sounds/evil-laugh.mp3">
+</audio>
+
+<div class="flash" id="flash"></div>
+
+<script>
+function heart(){
+  const h=document.createElement("div");
+  h.className="heart";
+  h.innerHTML="💘";
+  h.style.left=Math.random()*100+"vw";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),6000);
+}
+setInterval(heart,300);
+</script>
+
+<div class="container">
+
+<div style="font-size:50px;">🥺🌹</div>
+
+<h1>Will you be my Valentine?</h1>
+
+<div class="buttons">
+<button onclick="start()">Yes</button>
+<button onclick="start()">Of Course</button>
+</div>
+
+<div id="loading">
+⏳ Matching souls…<br>
+📸 Scanning face…<br>
+Detecting loneliness…
+</div>
+
+<div id="result"></div>
+
+<div class="counter" id="counter"></div>
+
+<div class="memes" id="memes">
+<img src="https://i.imgflip.com/4/30b1gx.jpg">
+<img src="https://i.imgflip.com/1bij.jpg">
+<img src="https://i.imgflip.com/26am.jpg">
+</div>
+
+</div>
+
+<script>
+let level=0;
+
+function start(){
+
+document.getElementById("loading").style.display="block";
+
+setTimeout(prank,3000);
+}
+
+function prank(){
+
+document.getElementById("loading").style.display="none";
+
+/* Flash Screenshot */
+const flash=document.getElementById("flash");
+flash.style.opacity=1;
+setTimeout(()=>flash.style.opacity=0,200);
+
+/* Laugh */
+document.getElementById("laugh").play();
+
+/* Result */
+document.getElementById("result").innerHTML=
+"😂 ضحكت عليك يا سنجل يا بائس 😂<br><br>"+
+"🚨 المحن تخطت الحدود 🚨<br><br>"+
+"📸 تم توثيق الحالة وإرسالها لجروب السنجلز<br><br>"+
+"مفيش فلانتين… ارجع نام 🛌💔";
+
+/* Counter */
+level++;
+document.getElementById("counter").innerHTML=
+"💔 Single Level: "+level+" ↑";
+
+/* Memes */
+document.getElementById("memes").style.display="block";
+
+}
+</script>
+
+</body>
+  </html>
